@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>С Днем Защитника!</title>
+  <style>
+    {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+    }
+
+    .background {
+      background: url('class.png') no-repeat center center/cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+h1 {
+  color: #ccccff; 
+  text-align: center;
+  margin: 2rem 0;
+  text-shadow:
+    -2px -2px 0 #1e3a8a,
+     2px -2px 0 #1e3a8a,
+    -2px  2px 0 #1e3a8a,
+     2px  2px 0 #1e3a8a;
+}
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4vh;
+      padding: 2vh 0;
+    }
+
+    .card {
+      width: 60vw;
+      height: 80vh;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-front {
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      padding-bottom: 10px;
+      background-color: #ccc;
+    }
+
+.card-back {
+  transform: rotateY(180deg);
+  background: rgba(0,0,0,0.7)   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    .card-name {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      color: #b2b266;
+      text-shadow: 1px 1px 3px black;
+      font-size: 1.8rem;
+    }
+
+    .question-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    .question-overlay h3 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .question-overlay button {
+      margin: 5px;
+      padding: 10px 20px;
+      background: #1e40af;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <h1>С Днем Защитника Отечества, мальчики!</h1>
+  <div class="card-container"></div>
+
+  <script>
+    const boys = [
+      { name: "Rusik", photo: "rusik.jpg", video: "rusik.mp4", question: "На кого поступает Сода?", options: ["Инженер", "Архитектор", "Дизайнер"], answer: "Архитектор" },
+      { name: "Stas", photo: "stas.jpg", video: "stas.mp4", question: "Ангелина лучше:", options: ["Сходит в уборную и опаздает", "Не опаздает и не сходит", "Не опаздает и сходит"], answer: "Сходит в уборную и опаздает" },
+      { name: "Zhasik", photo: "zhasik.jpg", video: "zhasik.mp4", question: "Рекорд отношений с Кариной", options: ["13 часов", "1 час", "7 часов"], answer: "13 часов" },
+      { name: "Maksat", photo: "maks.jpg", video: "maks.mp4", question: "Любимое блюдо Софии?", options: ["Пюре с сосиской и салатом", "Рис с мясом", "Макароны с котлетой"], answer: "Пюре с сосиской и салатом" },
+      { name: "Berik", photo: "berik.jpeg", video: "berik.mp4", question: "Какая у Жании включена передача?", options: ["Первая", "Нейтральная", "Пятая"], answer: "Нейтральная" },
+      { name: "Nurik", photo: "nurik.jpg", video: "nurik.mp4", question: "Любимый учитель Вилены?", options: ["Гульмира Шавкатовна", "Елена Яковлевна", "Айзат Нахыпжановна"], answer: "Айзат Нахыпжановна" },
+      { name: "Era", photo: "era.jpg", video: "era.mp4", question: "Что чаще всего делает Айгерим на перемене?", options: ["Готовится к следующему уроку", "Читает книжки", "Гуляет по коридору с подругами"], answer: "Гуляет по коридору с подругами" },
+      { name: "Beka", photo: "beka.jpeg", video: "beka.mp4", question: "Когда ты начал хорошо общаться с Настей?", options: ["С дождя", "Когда ехали в 75", "В 6 классе"], answer: "С дождя" },
+      { name: "Denchik", photo: "den.jpg", video: "den.mp4", question: "Когда ты подписался на Аяжан в инсте?", options: ["Сразу, как перевелся", "В беседке", "На курсах"], answer: "На курсах" },
+      { name: "Ars", photo: "ars.jpg", video: "ars.mp4", question: "Любимый персонаж Марвел у Тамилы?", options: ["Человек паук", "Железный человек", "Халк"], answer: "Железный человек" },
+      { name: "Nurda", photo: "nurda.jpeg", video: "nurda.mp4", question: "Когда день рождение у Медины?", options: ["1 апреля", "14 июня", "28 августа"], answer: "28 августа" },
+      { name: "Roma", photo: "ro.jpeg", video: "ro.mp4", question: "Когда день рождения у Дианы?", options: ["18 мая", "14 декабря", "5 июня"], answer: "18 мая" },
+      { name: "Olzhas", photo: "ol.jpeg", video: "ol.mp4", question: "Что Райхона боится и не умеет делать?", options: ["Плавать", "Готовить", "Ездить на велосипеде"], answer: "Плавать" },
+      { name: "Ismail", photo: "isma.jpeg", video: "isma.mp4", question: "Какой любимый предмет в школе у Мадины?", options: ["Химия", "Алгебра", "Английский"], answer: "Английский" },
+      { name: "Gaziz", photo: "gaziz.jpeg", video: "gaziz.mp4", question: "Любимая книга у Тамилы?", options: ["Бегущий за ветром", "Спеши любить", "1984"], answer: "Бегущий за ветром" }
+    ];
+
+    const container = document.querySelector('.card-container');
+
+    boys.forEach(boy => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const cardInner = document.createElement('div');
+      cardInner.classList.add('card-inner');
+
+      const front = document.createElement('div');
+      front.classList.add('card-front');
+      front.style.backgroundImage = `url(${boy.photo})`;
+
+      const nameTag = document.createElement('div');
+      nameTag.classList.add('card-name');
+      nameTag.textContent = boy.name;
+      front.appendChild(nameTag);
+
+      const back = document.createElement('div');
+      back.classList.add('card-back');
+      const video = document.createElement('video');
+      video.src = boy.video;
+      video.controls = true;
+      video.style.width = '100%';
+      back.appendChild(video);
+
+      const overlay = document.createElement('div');
+      overlay.classList.add('question-overlay');
+      const q = document.createElement('h3');
+      q.textContent = boy.question;
+      overlay.appendChild(q);
+
+      boy.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (opt === boy.answer) {
+            overlay.remove();
+            card.classList.add('flipped');
+          } else {
+            overlay.classList.add('shake');
+            setTimeout(() => overlay.classList.remove('shake'), 400);
+          }
+        };
+        overlay.appendChild(btn);
+      });
+
+      front.appendChild(overlay);
+      cardInner.appendChild(front);
+      cardInner.appendChild(back);
+      card.appendChild(cardInner);
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
+
